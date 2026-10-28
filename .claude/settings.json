@@ -17,6 +17,8 @@
       "Bash(uv add *)",
       "Bash(uv run pytest -m reel *)",
       "Bash(uv run python -m bourse_jev *)",
+      "Bash(uv run pytest -m reel)",
+      "Bash(uv run python -m bourse_jev)",
       "Bash(git push *)"
     ],
     "deny": [
