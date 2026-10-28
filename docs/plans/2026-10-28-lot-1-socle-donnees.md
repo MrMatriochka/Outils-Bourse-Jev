@@ -257,7 +257,7 @@ Ordre des contrôles dans `valider_cours` : valeurs non positives, puis cohéren
 - Consomme : le port `CalendrierDeMarche` (tâche 3).
 - Produit : `CalendrierXNYS()` qui implémente `jours_de_bourse(debut, fin)` à partir du calendrier `XNYS` d'`exchange_calendars`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from datetime import date
@@ -275,10 +275,10 @@ def test_intervalle_sans_jour_de_bourse():
     assert CalendrierXNYS().jours_de_bourse(date(2026, 10, 31), date(2026, 11, 1)) == []
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_calendrier_xnys.py -v`
-- [ ] **Étape 3 : implémenter `CalendrierXNYS.jours_de_bourse`** (`sessions_in_range`, conversion en `date`).
-- [ ] **Étape 4 : vérifier** — les trois tests passent.
-- [ ] **Étape 5 : commit** — `feat(adaptateurs): calendrier de la bourse de New York`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_calendrier_xnys.py -v`
+- [x] **Étape 3 : implémenter `CalendrierXNYS.jours_de_bourse`** (`sessions_in_range`, conversion en `date`).
+- [x] **Étape 4 : vérifier** — les trois tests passent.
+- [x] **Étape 5 : commit** — `feat(adaptateurs): calendrier de la bourse de New York`
 
 ---
 

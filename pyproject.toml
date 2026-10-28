@@ -37,3 +37,8 @@ pythonpath = ["."]
 testpaths = ["tests"]
 markers = ["reel: appelle une vraie API, exclu par défaut"]
 addopts = "-m 'not reel'"
+
+[[tool.mypy.overrides]]
+# exchange_calendars ne publie ni annotations ni stubs.
+module = ["exchange_calendars", "exchange_calendars.*"]
+ignore_missing_imports = true
