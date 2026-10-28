@@ -75,6 +75,22 @@ def test_reponse_malformee_leve_source_indisponible():
         source_avec("malformee.json").cours_du_jour("AAPL", date(2026, 10, 27))
 
 
+def test_reponse_non_json_decrite_sans_la_cle():
+    # Cas réel du 28/10/2026 : HTTP 400 au corps non JSON, message d'erreur muet.
+    def repondre(requete):
+        return httpx.Response(400, text="Bad Request: secret-123 refused\n")
+
+    client = httpx.Client(transport=httpx.MockTransport(repondre))
+    source = SourceTwelveData(
+        "secret-123", client=client, attendre=[].append, horloge_s=lambda: 0.0
+    )
+    with pytest.raises(SourceIndisponible) as erreur:
+        source.cours_du_jour("AAPL", date(2026, 10, 27))
+    message = str(erreur.value)
+    assert "HTTP 400" in message and "Bad Request" in message
+    assert "secret-123" not in message
+
+
 def test_quota_journalier_interne_respecte():
     source = source_avec("time_series_aapl.json")
     source.credits_par_jour = 2

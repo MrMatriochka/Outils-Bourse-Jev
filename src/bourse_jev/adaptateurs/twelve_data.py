@@ -88,13 +88,20 @@ class SourceTwelveData:
         if reponse.status_code == 429 or code == 429:
             raise QuotaAtteint(f"{symbole} : quota Twelve Data atteint (429)")
         if not isinstance(corps, dict):
-            raise SourceIndisponible(f"{symbole} : réponse illisible (HTTP {reponse.status_code})")
+            raise SourceIndisponible(
+                f"{symbole} : réponse illisible (HTTP {reponse.status_code}, "
+                f"{self._extrait(reponse.text)!r})"
+            )
         if reponse.status_code != 200 or corps.get("status") != "ok":
             message = str(corps.get("message", "erreur sans message"))[:200]
             raise SourceIndisponible(
                 f"{symbole} : erreur {code or reponse.status_code} ({message})"
             )
         return corps
+
+    def _extrait(self, texte: str) -> str:
+        """Début du corps de réponse, sur une ligne et sans la clé, pour diagnostiquer."""
+        return " ".join(texte.replace(self._cle_api, "<CLE>").split())[:120]
 
 
 def _convertir(symbole: str, jour: date, barre: dict[str, Any]) -> CoursBrut:

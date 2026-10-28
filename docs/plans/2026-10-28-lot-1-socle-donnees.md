@@ -499,8 +499,8 @@ def test_contrat_reel_twelve_data():
 Limitation par fenêtre glissante : une `deque` des instants d'appel ; retirer ceux de plus de 60 s ; s'il en reste 8, attendre `60 - (maintenant - plus_ancien)` secondes puis retirer le plus ancien (ne pas relire l'horloge en boucle : le test utilise une horloge figée). Contrôler le quota journalier interne **avant** l'appel. Code 429 (HTTP ou dans le corps) → `QuotaAtteint` ; tout autre `status: error`, erreur réseau ou champ manquant/non numérique → `SourceIndisponible` dont le message contient le symbole. Conversion des chaînes en `Decimal` et du volume en `int`.
 
 - [x] **Étape 4 : vérifier** — les tests passent (le test `reel` est exclu).
-- [ ] **Étape 5 : écrire le corps du test `reel`** (un appel AAPL sur le dernier jour de bourse ; vérifie un `CoursBrut` cohérent) et le lancer une fois à la main : `uv run pytest -m reel -v`. Si le format réel diffère des fixtures, corriger les fixtures, pas le test réel.
-  > Écart (exécution) : corps écrit ; le lancement réel reste à faire par Valentin (consomme le quota, nécessite la clé).
+- [x] **Étape 5 : écrire le corps du test `reel`** (un appel AAPL sur le dernier jour de bourse ; vérifie un `CoursBrut` cohérent) et le lancer une fois à la main : `uv run pytest -m reel -v`. Si le format réel diffère des fixtures, corriger les fixtures, pas le test réel.
+  > Exécution : test réel passé le 28/10/2026 (clé en en-tête acceptée, format conforme aux fixtures). Un premier essai avec une clé mal collée (34 caractères non alphanumériques) a renvoyé un HTTP 400 au corps non JSON : le message « réponse illisible » inclut désormais un extrait du corps, sans la clé.
   > Écart (exécution) : `outputsize=30` au lieu de 5 (5 barres ne couvrent pas une fenêtre de rattrapage de 10 jours de bourse ; même coût en crédits) ; clé envoyée en en-tête `Authorization: apikey …` et non en paramètre `apikey`, pour qu'elle n'apparaisse jamais dans une URL journalisée.
 - [x] **Étape 6 : commit** — `feat(adaptateurs): source de cours Twelve Data avec limitation de débit`
 
