@@ -126,7 +126,7 @@ git commit -m "chore: socle du projet Python et intégration continue"
 **Interfaces :**
 - Produit : `Configuration(database_url: str, twelve_data_api_key: str)` (dataclass figée) ; `charger_configuration(env: Mapping[str, str] = os.environ) -> Configuration` ; `ConfigurationIncomplete(Exception)` dont le message liste les variables manquantes, sans jamais afficher de valeur.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 import pytest
@@ -154,10 +154,10 @@ def test_le_message_ne_contient_jamais_de_valeur_secrete():
     assert "secret-123" not in str(erreur.value)
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_config.py -v`
-- [ ] **Étape 3 : implémenter `charger_configuration` et `ConfigurationIncomplete`** (créer aussi dans `erreurs.py` : `QuotaAtteint(Exception)` et `SourceIndisponible(Exception)`, utilisées aux tâches 7 et 9).
-- [ ] **Étape 4 : vérifier** — `uv run pytest tests/test_config.py -v` passe.
-- [ ] **Étape 5 : commit** — `feat(config): chargement de la configuration par variables d'environnement`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_config.py -v`
+- [x] **Étape 3 : implémenter `charger_configuration` et `ConfigurationIncomplete`** (créer aussi dans `erreurs.py` : `QuotaAtteint(Exception)` et `SourceIndisponible(Exception)`, utilisées aux tâches 7 et 9).
+- [x] **Étape 4 : vérifier** — `uv run pytest tests/test_config.py -v` passe.
+- [x] **Étape 5 : commit** — `feat(config): chargement de la configuration par variables d'environnement`
 
 ---
 
