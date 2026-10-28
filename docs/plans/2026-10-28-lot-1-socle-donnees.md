@@ -666,7 +666,7 @@ Les fonctions d'aide `marquer_reussi(depot, jour)`, `declencheur_enregistre(depo
 - Consomme : `charger_configuration`, `connecter`, `appliquer_migrations`, `DepotPostgres`, `charger_panel`, `synchroniser_catalogue`, `SourceTwelveData`, `CalendrierXNYS`, `HorlogeSysteme`, `jour_de_marche_courant`, `collecter`.
 - Produit : `main(argv: list[str] | None = None) -> int` ; sous-commandes `migrer`, `catalogue`, `collecter [--date AAAA-MM-JJ] [--declencheur cron|manuel]` ; code de sortie `0` si tous les rapports sont `OK`, `SANS_OBJET` ou `PARTIELLE` (ou s'il n'y a rien à faire), `1` si au moins un rapport est `ECHEC`, `2` pour une configuration incomplète.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from bourse_jev.__main__ import code_de_sortie, lire_arguments
@@ -685,11 +685,12 @@ def test_code_de_sortie():
     assert code_de_sortie([S.OK, S.ECHEC]) == 1
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_cli.py -v`
-- [ ] **Étape 3 : implémenter `main`, `lire_arguments` et `code_de_sortie`** — sans `--date`, la date vient de `jour_de_marche_courant(HorlogeSysteme().maintenant())`. Afficher un résumé par rapport (date, statut, nombre de cours, erreurs) et, pour `PARTIELLE`, une ligne `::warning::` lisible dans GitHub Actions.
-- [ ] **Étape 4 : écrire `.github/workflows/collecte.yml`** — déclencheurs : `schedule` avec `cron: "45 21 * * 1-5"` (21 h 45 UTC, après la clôture de New York en heure d'été comme d'hiver) et `workflow_dispatch` ; secrets `DATABASE_URL` et `TWELVE_DATA_API_KEY` ; étapes : `uv sync`, `uv run python -m bourse_jev migrer`, `… catalogue`, `… collecter` ; `timeout-minutes: 30` (31 titres à 8 par minute ≈ 4 minutes, plus le rattrapage).
-- [ ] **Étape 5 : vérifier localement** — `uv run pytest -v`, `uv run ruff check .` et `uv run mypy src` passent.
-- [ ] **Étape 6 : commit** — `feat(cli): commandes migrer, catalogue, collecter et batch planifié`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_cli.py -v`
+- [x] **Étape 3 : implémenter `main`, `lire_arguments` et `code_de_sortie`** — sans `--date`, la date vient de `jour_de_marche_courant(HorlogeSysteme().maintenant())`. Afficher un résumé par rapport (date, statut, nombre de cours, erreurs) et, pour `PARTIELLE`, une ligne `::warning::` lisible dans GitHub Actions.
+- [x] **Étape 4 : écrire `.github/workflows/collecte.yml`** — déclencheurs : `schedule` avec `cron: "45 21 * * 1-5"` (21 h 45 UTC, après la clôture de New York en heure d'été comme d'hiver) et `workflow_dispatch` ; secrets `DATABASE_URL` et `TWELVE_DATA_API_KEY` ; étapes : `uv sync`, `uv run python -m bourse_jev migrer`, `… catalogue`, `… collecter` ; `timeout-minutes: 30` (31 titres à 8 par minute ≈ 4 minutes, plus le rattrapage).
+- [x] **Étape 5 : vérifier localement** — `uv run pytest -v`, `uv run ruff check .` et `uv run mypy src` passent.
+- [x] **Étape 6 : commit** — `feat(cli): commandes migrer, catalogue, collecter et batch planifié`
+  > Écart (exécution) : le workflow passe `--declencheur cron` sur `schedule` et `manuel` sur `workflow_dispatch` ; groupe `concurrency` pour empêcher deux collectes simultanées ; dépendances de dev non installées en production (`--no-dev`). Les messages d'API sont mis sur une seule ligne avant affichage, pour qu'ils ne puissent pas forger une commande de workflow `::…::`.
 - [ ] **Étape 7 : mise en service (manuelle, par Valentin)**
   1. Créer le projet Neon et récupérer la chaîne de connexion.
   2. Créer la clé Twelve Data (offre Basic).

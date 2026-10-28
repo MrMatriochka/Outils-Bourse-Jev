@@ -1,0 +1,32 @@
+name: collecte
+
+on:
+  schedule:
+    # 21 h 45 UTC du lundi au vendredi : après la clôture de New York (16 h),
+    # en heure d'été (20 h UTC) comme en heure d'hiver (21 h UTC).
+    - cron: "45 21 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Deux collectes simultanées se marcheraient dessus (quota partagé) : la seconde attend.
+concurrency:
+  group: collecte
+  cancel-in-progress: false
+
+jobs:
+  collecte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      TWELVE_DATA_API_KEY: ${{ secrets.TWELVE_DATA_API_KEY }}
+      DECLENCHEUR: ${{ github.event_name == 'schedule' && 'cron' || 'manuel' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked --no-dev
+      - run: uv run --no-dev python -m bourse_jev migrer
+      - run: uv run --no-dev python -m bourse_jev catalogue
+      - run: uv run --no-dev python -m bourse_jev collecter --declencheur "$DECLENCHEUR"
