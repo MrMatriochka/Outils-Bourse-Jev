@@ -84,3 +84,12 @@ class DepotEnMemoire:
         execution.statut = rapport.statut
         execution.fin = fin
         execution.rapport = rapport
+
+    # Lectures réservées aux tests : elles ne font pas partie du port `Depot`.
+
+    def execution_du(self, jour: date) -> tuple[Declencheur, StatutExecution]:
+        execution = self._executions[jour]
+        return execution.declencheur, execution.statut
+
+    def cours_du(self, titre_id: int, jour: date) -> CoursJournalier | None:
+        return self._cours.get((titre_id, jour))

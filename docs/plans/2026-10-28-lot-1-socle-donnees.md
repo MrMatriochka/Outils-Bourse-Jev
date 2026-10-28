@@ -579,7 +579,7 @@ pour chaque jour de a_traiter :
 
 `credits_consommes` du rapport = différence de `source.credits_consommes` sur le jour.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from datetime import date
@@ -649,10 +649,10 @@ def test_recupere_le_vient_de_l_horloge(depot_3_titres, calendrier, horloge, sou
 
 Les fonctions d'aide `marquer_reussi(depot, jour)`, `declencheur_enregistre(depot, jour)`, `id_de(depot, symbole)`, `cours_stocke(titre_id, jour, cloture)` et `cours_de(depot, symbole, jour)` vivent dans `tests/application/aides.py` (avec `tests/application/__init__.py`) ; les fixtures `depot_3_titres`, `calendrier`, `horloge`, `brut` et `source_complete` (fabrique : `source_complete(*jours)` renvoie une `SourceFactice` qui répond un cours normal pour les 3 titres à chacun de ces jours) vivent dans `tests/application/conftest.py`. `brut(jour, cloture="100")` renvoie un `CoursBrut` dont ouverture, haut, bas et clôture valent tous `cloture` et le volume 1000. `declencheur_enregistre` et `cours_de` lisent l'état par deux méthodes de lecture réservées aux tests, ajoutées à `DepotEnMemoire` dans cette tâche : `execution_du(jour) -> tuple[Declencheur, StatutExecution]` et `cours_du(titre_id, jour) -> CoursJournalier | None`.
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_collecte.py -v`
-- [ ] **Étape 3 : implémenter `collecter`** selon l'algorithme ci-dessus.
-- [ ] **Étape 4 : vérifier** — tous les tests du projet passent : `uv run pytest -v`.
-- [ ] **Étape 5 : commit** — `feat(collecte): collecte quotidienne idempotente avec rattrapage`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_collecte.py -v`
+- [x] **Étape 3 : implémenter `collecter`** selon l'algorithme ci-dessus.
+- [x] **Étape 4 : vérifier** — tous les tests du projet passent : `uv run pytest -v`.
+- [x] **Étape 5 : commit** — `feat(collecte): collecte quotidienne idempotente avec rattrapage`
 
 ---
 
