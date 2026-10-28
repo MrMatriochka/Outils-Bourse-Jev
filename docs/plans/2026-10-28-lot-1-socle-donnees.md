@@ -83,7 +83,7 @@ tests/
 **Interfaces :**
 - Produit : le paquet installable `bourse_jev` ; `bourse_jev.__version__: str` ; les commandes `uv run pytest`, `uv run ruff check .`, `uv run mypy src`.
 
-- [ ] **Étape 1 : écrire le test qui échoue**
+- [x] **Étape 1 : écrire le test qui échoue**
 
 ```python
 import bourse_jev
@@ -92,23 +92,23 @@ def test_le_paquet_expose_sa_version():
     assert bourse_jev.__version__ == "0.1.0"
 ```
 
-- [ ] **Étape 2 : lancer le test et vérifier l'échec**
+- [x] **Étape 2 : lancer le test et vérifier l'échec**
 
 Commande : `uv run pytest tests/test_socle.py -v` — attendu : échec (`ModuleNotFoundError`).
 
-- [ ] **Étape 3 : créer `pyproject.toml` et le paquet**
+- [x] **Étape 3 : créer `pyproject.toml` et le paquet**
 
 Projet `bourse-jev` version `0.1.0`, `requires-python = ">=3.12"`, disposition `src/`, paquet `bourse_jev`. Dépendances : `httpx`, `psycopg[binary]`, `exchange_calendars`. Dépendances de développement : `pytest`, `ruff`, `mypy`. Ruff : `line-length = 100`, règles `E,F,I,B,UP`. Mypy : `strict = true` sur `src`. Pytest : `pythonpath = ["."]` (pour importer `tests.doublures`), marqueur `reel` (« appelle une vraie API, exclu par défaut ») et `addopts = "-m 'not reel'"`. Créer `tests/__init__.py` vide.
 
-- [ ] **Étape 4 : écrire `.github/workflows/tests.yml`**
+- [x] **Étape 4 : écrire `.github/workflows/tests.yml`**
 
 Déclenché sur `push` et `pull_request`. Un service `postgres:16` (utilisateur, mot de passe et base `test`, port 5432, contrôle de santé `pg_isready`). Étapes : récupérer le code, installer uv, `uv sync`, `uv run ruff check .`, `uv run mypy src`, `uv run pytest`, avec `TEST_DATABASE_URL=postgresql://test:test@localhost:5432/test`.
 
-- [ ] **Étape 5 : vérifier**
+- [x] **Étape 5 : vérifier**
 
 Commandes : `uv run pytest -v`, `uv run ruff check .`, `uv run mypy src` — attendu : tout passe.
 
-- [ ] **Étape 6 : commit**
+- [x] **Étape 6 : commit**
 
 ```bash
 git add pyproject.toml .python-version src/ tests/ .github/workflows/tests.yml uv.lock
@@ -126,7 +126,7 @@ git commit -m "chore: socle du projet Python et intégration continue"
 **Interfaces :**
 - Produit : `Configuration(database_url: str, twelve_data_api_key: str)` (dataclass figée) ; `charger_configuration(env: Mapping[str, str] = os.environ) -> Configuration` ; `ConfigurationIncomplete(Exception)` dont le message liste les variables manquantes, sans jamais afficher de valeur.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 import pytest
@@ -154,10 +154,10 @@ def test_le_message_ne_contient_jamais_de_valeur_secrete():
     assert "secret-123" not in str(erreur.value)
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_config.py -v`
-- [ ] **Étape 3 : implémenter `charger_configuration` et `ConfigurationIncomplete`** (créer aussi dans `erreurs.py` : `QuotaAtteint(Exception)` et `SourceIndisponible(Exception)`, utilisées aux tâches 7 et 9).
-- [ ] **Étape 4 : vérifier** — `uv run pytest tests/test_config.py -v` passe.
-- [ ] **Étape 5 : commit** — `feat(config): chargement de la configuration par variables d'environnement`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_config.py -v`
+- [x] **Étape 3 : implémenter `charger_configuration` et `ConfigurationIncomplete`** (créer aussi dans `erreurs.py` : `QuotaAtteint(Exception)` et `SourceIndisponible(Exception)`, utilisées aux tâches 7 et 9).
+- [x] **Étape 4 : vérifier** — `uv run pytest tests/test_config.py -v` passe.
+- [x] **Étape 5 : commit** — `feat(config): chargement de la configuration par variables d'environnement`
 
 ---
 
@@ -184,7 +184,7 @@ def test_le_message_ne_contient_jamais_de_valeur_secrete():
 - Produit, dans `temps.py` : `jour_de_marche_courant(maintenant: datetime) -> date` (date dans `America/New_York`).
 - Produit, dans `adaptateurs/horloge.py` : `HorlogeSysteme` ; dans `tests/doublures.py` : `HorlogeFixe(instant: datetime)` et une fabrique `fabriquer_cours(**modifs) -> CoursJournalier` (titre 1, 27/10/2026, OHLC 100/101/99/100, volume 1000, source `"test"`, `recupere_le` 27/10/2026 21 h 45 UTC ; chaque argument nommé remplace le champ du même nom).
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from decimal import Decimal as D
@@ -237,13 +237,13 @@ def test_jour_de_marche_courant_apres_la_cloture():
     assert jour_de_marche_courant(datetime(2026, 10, 28, 21, 45, tzinfo=timezone.utc)) == date(2026, 10, 28)
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/domaine -v`
-- [ ] **Étape 3 : implémenter les modèles, `valider_cours`, les ports, `jour_de_marche_courant` et `HorlogeSysteme`**
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/domaine -v`
+- [x] **Étape 3 : implémenter les modèles, `valider_cours`, les ports, `jour_de_marche_courant` et `HorlogeSysteme`**
 
 Ordre des contrôles dans `valider_cours` : valeurs non positives, puis cohérence (`haut >= max(ouverture, cloture, bas)` et `bas <= min(ouverture, cloture)`), puis variation `abs(cloture / cloture_precedente - 1) > Decimal("0.5")`. `jour_de_marche_courant` utilise `zoneinfo.ZoneInfo("America/New_York")`.
 
-- [ ] **Étape 4 : vérifier** — `uv run pytest tests/domaine -v` passe, `uv run mypy src` passe.
-- [ ] **Étape 5 : commit** — `feat(domaine): modèles, validation des cours et ports`
+- [x] **Étape 4 : vérifier** — `uv run pytest tests/domaine -v` passe, `uv run mypy src` passe.
+- [x] **Étape 5 : commit** — `feat(domaine): modèles, validation des cours et ports`
 
 ---
 
@@ -257,7 +257,7 @@ Ordre des contrôles dans `valider_cours` : valeurs non positives, puis cohéren
 - Consomme : le port `CalendrierDeMarche` (tâche 3).
 - Produit : `CalendrierXNYS()` qui implémente `jours_de_bourse(debut, fin)` à partir du calendrier `XNYS` d'`exchange_calendars`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from datetime import date
@@ -275,10 +275,10 @@ def test_intervalle_sans_jour_de_bourse():
     assert CalendrierXNYS().jours_de_bourse(date(2026, 10, 31), date(2026, 11, 1)) == []
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_calendrier_xnys.py -v`
-- [ ] **Étape 3 : implémenter `CalendrierXNYS.jours_de_bourse`** (`sessions_in_range`, conversion en `date`).
-- [ ] **Étape 4 : vérifier** — les trois tests passent.
-- [ ] **Étape 5 : commit** — `feat(adaptateurs): calendrier de la bourse de New York`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_calendrier_xnys.py -v`
+- [x] **Étape 3 : implémenter `CalendrierXNYS.jours_de_bourse`** (`sessions_in_range`, conversion en `date`).
+- [x] **Étape 4 : vérifier** — les trois tests passent.
+- [x] **Étape 5 : commit** — `feat(adaptateurs): calendrier de la bourse de New York`
 
 ---
 
@@ -292,7 +292,7 @@ def test_intervalle_sans_jour_de_bourse():
 - Consomme : le port `Depot` et les modèles (tâche 3).
 - Produit : `DepotEnMemoire()` ; une fixture pytest `depot` paramétrée sur `["memoire"]`, à laquelle la tâche 6 ajoute `"postgres"`. Les attributs internes du dépôt en mémoire ne sont jamais lus par les tests : seules les méthodes du port le sont, pour que la même suite vaille contrat pour Postgres.
 
-- [ ] **Étape 1 : écrire les tests de contrat qui échouent**
+- [x] **Étape 1 : écrire les tests de contrat qui échouent**
 
 ```python
 from datetime import date, datetime, timezone
@@ -342,10 +342,10 @@ def test_dates_reussies_ne_contiennent_que_ok_et_sans_objet(depot):
     assert depot.dates_reussies(depuis=date(2026, 10, 1)) == {date(2026, 10, 27), date(2026, 10, 25)}
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/contrat -v`
-- [ ] **Étape 3 : implémenter `DepotEnMemoire`** (identifiants séquentiels à partir de 1, unicité titre sur `(symbole, place)`).
-- [ ] **Étape 4 : vérifier** — `uv run pytest tests/contrat -v` passe.
-- [ ] **Étape 5 : commit** — `feat(adaptateurs): dépôt en mémoire et suite de contrat`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/contrat -v`
+- [x] **Étape 3 : implémenter `DepotEnMemoire`** (identifiants séquentiels à partir de 1, unicité titre sur `(symbole, place)`).
+- [x] **Étape 4 : vérifier** — `uv run pytest tests/contrat -v` passe.
+- [x] **Étape 5 : commit** — `feat(adaptateurs): dépôt en mémoire et suite de contrat`
 
 ---
 
@@ -367,7 +367,7 @@ Contenu de `001_socle.sql` :
 - Un déclencheur qui lève une exception sur tout `UPDATE` ou `DELETE` de `cours_journalier` (ajout seul garanti par la base, en plus du code).
 - `execution(id bigint generated always as identity primary key, date_marche date not null unique, declencheur text not null check (declencheur in ('cron','manuel','rattrapage')), statut text not null check (statut in ('en_cours','ok','partielle','sans_objet','echec')), debut timestamptz not null, fin timestamptz, nb_cours_enregistres integer not null default 0, erreurs jsonb not null default '[]', titres_en_retard jsonb not null default '[]', credits_consommes integer not null default 0)`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 import pytest
@@ -400,11 +400,11 @@ def test_connecter_echoue_apres_deux_tentatives():
 
 Fixtures (`tests/conftest.py`) : `conn_test` ouvre `TEST_DATABASE_URL`, recrée un schéma vide pour chaque test (`DROP SCHEMA public CASCADE; CREATE SCHEMA public`) et saute le test (`pytest.skip`) si la variable est absente ; `dossier_migrations` pointe vers `migrations/` ; `depot_postgres_avec_un_cours` applique les migrations, enregistre le titre AAPL puis `fabriquer_cours(titre_id=<son id>)`.
 
-- [ ] **Étape 2 : vérifier l'échec** — `TEST_DATABASE_URL=… uv run pytest tests/adaptateurs/test_postgres.py -v` (Postgres local : `docker run -e POSTGRES_PASSWORD=test -e POSTGRES_USER=test -e POSTGRES_DB=test -p 5432:5432 postgres:16`).
-- [ ] **Étape 3 : écrire `001_socle.sql`, `connecter`, `appliquer_migrations` et `DepotPostgres`** — chaque migration dans sa propre transaction ; `enregistrer_cours` en `INSERT … ON CONFLICT (titre_id, jour) DO NOTHING` et renvoie `rowcount == 1` ; `debuter_execution` en `INSERT … ON CONFLICT (date_marche) DO UPDATE SET statut = 'en_cours', declencheur = …, debut = … RETURNING id`.
-- [ ] **Étape 4 : brancher la suite de contrat** — ajouter `"postgres"` aux paramètres de la fixture `depot` (migrations appliquées sur la base de test).
-- [ ] **Étape 5 : vérifier** — `uv run pytest tests/contrat tests/adaptateurs/test_postgres.py -v` : la suite de contrat passe pour `memoire` et `postgres`.
-- [ ] **Étape 6 : commit** — `feat(adaptateurs): schéma Postgres, migrations et dépôt Postgres`
+- [x] **Étape 2 : vérifier l'échec** — `TEST_DATABASE_URL=… uv run pytest tests/adaptateurs/test_postgres.py -v` (Postgres local : `docker run -e POSTGRES_PASSWORD=test -e POSTGRES_USER=test -e POSTGRES_DB=test -p 5432:5432 postgres:16`).
+- [x] **Étape 3 : écrire `001_socle.sql`, `connecter`, `appliquer_migrations` et `DepotPostgres`** — chaque migration dans sa propre transaction ; `enregistrer_cours` en `INSERT … ON CONFLICT (titre_id, jour) DO NOTHING` et renvoie `rowcount == 1` ; `debuter_execution` en `INSERT … ON CONFLICT (date_marche) DO UPDATE SET statut = 'en_cours', declencheur = …, debut = … RETURNING id`.
+- [x] **Étape 4 : brancher la suite de contrat** — ajouter `"postgres"` aux paramètres de la fixture `depot` (migrations appliquées sur la base de test).
+- [x] **Étape 5 : vérifier** — `uv run pytest tests/contrat tests/adaptateurs/test_postgres.py -v` : la suite de contrat passe pour `memoire` et `postgres`.
+- [x] **Étape 6 : commit** — `feat(adaptateurs): schéma Postgres, migrations et dépôt Postgres`
 
 ---
 
@@ -422,7 +422,7 @@ Appel : `GET https://api.twelvedata.com/time_series` avec `symbol`, `interval=1d
 
 Contenu de `time_series_aapl.json` (valeurs fictives) : trois barres, `2026-10-27` (open `231.10`, high `233.80`, low `230.40`, close `232.95`, volume `48210500`), `2026-10-24`, `2026-10-23`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 import json
@@ -493,14 +493,16 @@ def test_contrat_reel_twelve_data():
 
 `malformee.json` : `status: ok` et une barre du 27/10/2026 sans champ `close`. `erreur_symbole.json` : `{"code": 404, "message": "symbol ZZZZ not found", "status": "error"}`.
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_twelve_data.py -v`
-- [ ] **Étape 3 : implémenter `SourceTwelveData.cours_du_jour`**
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_twelve_data.py -v`
+- [x] **Étape 3 : implémenter `SourceTwelveData.cours_du_jour`**
 
 Limitation par fenêtre glissante : une `deque` des instants d'appel ; retirer ceux de plus de 60 s ; s'il en reste 8, attendre `60 - (maintenant - plus_ancien)` secondes puis retirer le plus ancien (ne pas relire l'horloge en boucle : le test utilise une horloge figée). Contrôler le quota journalier interne **avant** l'appel. Code 429 (HTTP ou dans le corps) → `QuotaAtteint` ; tout autre `status: error`, erreur réseau ou champ manquant/non numérique → `SourceIndisponible` dont le message contient le symbole. Conversion des chaînes en `Decimal` et du volume en `int`.
 
-- [ ] **Étape 4 : vérifier** — les tests passent (le test `reel` est exclu).
-- [ ] **Étape 5 : écrire le corps du test `reel`** (un appel AAPL sur le dernier jour de bourse ; vérifie un `CoursBrut` cohérent) et le lancer une fois à la main : `uv run pytest -m reel -v`. Si le format réel diffère des fixtures, corriger les fixtures, pas le test réel.
-- [ ] **Étape 6 : commit** — `feat(adaptateurs): source de cours Twelve Data avec limitation de débit`
+- [x] **Étape 4 : vérifier** — les tests passent (le test `reel` est exclu).
+- [x] **Étape 5 : écrire le corps du test `reel`** (un appel AAPL sur le dernier jour de bourse ; vérifie un `CoursBrut` cohérent) et le lancer une fois à la main : `uv run pytest -m reel -v`. Si le format réel diffère des fixtures, corriger les fixtures, pas le test réel.
+  > Exécution : test réel passé le 28/10/2026 (clé en en-tête acceptée, format conforme aux fixtures). Un premier essai avec une clé mal collée (34 caractères non alphanumériques) a renvoyé un HTTP 400 au corps non JSON : le message « réponse illisible » inclut désormais un extrait du corps, sans la clé.
+  > Écart (exécution) : `outputsize=30` au lieu de 5 (5 barres ne couvrent pas une fenêtre de rattrapage de 10 jours de bourse ; même coût en crédits) ; clé envoyée en en-tête `Authorization: apikey …` et non en paramètre `apikey`, pour qu'elle n'apparaisse jamais dans une URL journalisée.
+- [x] **Étape 6 : commit** — `feat(adaptateurs): source de cours Twelve Data avec limitation de débit`
 
 ---
 
@@ -516,7 +518,7 @@ Limitation par fenêtre glissante : une `deque` des instants d'appel ; retirer c
 
 `panel_temoin.csv` — colonnes `symbole,nom,place,devise,role` (`role` = `panel` ou `reference`). Trente titres répartis entre secteurs, pour ne pas reproduire le biais « technologie à la mode » : AAPL, MSFT, NVDA, AMZN, GOOGL, META (technologie et communication), JPM, BAC, V, MA (finance), JNJ, PFE, UNH, LLY (santé), XOM, CVX (énergie), PG, KO, PEP, WMT, COST (consommation de base), HD, MCD, DIS (consommation cyclique), CAT, BA, GE (industrie), NEE (services aux collectivités), T, VZ (télécoms) ; plus SPY en `reference`. Place `XNYS` pour tous (simplification v1 : la place sert d'identifiant interne, pas d'adresse de cotation), devise `USD`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from pathlib import Path
@@ -536,10 +538,10 @@ def test_synchronisation_idempotente():
     assert synchroniser_catalogue(depot, titres) == 0
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_catalogue.py -v`
-- [ ] **Étape 3 : écrire le CSV et implémenter les deux fonctions** (module `csv` de la bibliothèque standard).
-- [ ] **Étape 4 : vérifier** — les tests passent.
-- [ ] **Étape 5 : commit** — `feat(catalogue): panel témoin de 30 titres et ETF de référence`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_catalogue.py -v`
+- [x] **Étape 3 : écrire le CSV et implémenter les deux fonctions** (module `csv` de la bibliothèque standard).
+- [x] **Étape 4 : vérifier** — les tests passent.
+- [x] **Étape 5 : commit** — `feat(catalogue): panel témoin de 30 titres et ETF de référence`
 
 ---
 
@@ -577,7 +579,7 @@ pour chaque jour de a_traiter :
 
 `credits_consommes` du rapport = différence de `source.credits_consommes` sur le jour.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from datetime import date
@@ -647,10 +649,10 @@ def test_recupere_le_vient_de_l_horloge(depot_3_titres, calendrier, horloge, sou
 
 Les fonctions d'aide `marquer_reussi(depot, jour)`, `declencheur_enregistre(depot, jour)`, `id_de(depot, symbole)`, `cours_stocke(titre_id, jour, cloture)` et `cours_de(depot, symbole, jour)` vivent dans `tests/application/aides.py` (avec `tests/application/__init__.py`) ; les fixtures `depot_3_titres`, `calendrier`, `horloge`, `brut` et `source_complete` (fabrique : `source_complete(*jours)` renvoie une `SourceFactice` qui répond un cours normal pour les 3 titres à chacun de ces jours) vivent dans `tests/application/conftest.py`. `brut(jour, cloture="100")` renvoie un `CoursBrut` dont ouverture, haut, bas et clôture valent tous `cloture` et le volume 1000. `declencheur_enregistre` et `cours_de` lisent l'état par deux méthodes de lecture réservées aux tests, ajoutées à `DepotEnMemoire` dans cette tâche : `execution_du(jour) -> tuple[Declencheur, StatutExecution]` et `cours_du(titre_id, jour) -> CoursJournalier | None`.
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_collecte.py -v`
-- [ ] **Étape 3 : implémenter `collecter`** selon l'algorithme ci-dessus.
-- [ ] **Étape 4 : vérifier** — tous les tests du projet passent : `uv run pytest -v`.
-- [ ] **Étape 5 : commit** — `feat(collecte): collecte quotidienne idempotente avec rattrapage`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_collecte.py -v`
+- [x] **Étape 3 : implémenter `collecter`** selon l'algorithme ci-dessus.
+- [x] **Étape 4 : vérifier** — tous les tests du projet passent : `uv run pytest -v`.
+- [x] **Étape 5 : commit** — `feat(collecte): collecte quotidienne idempotente avec rattrapage`
 
 ---
 
@@ -664,7 +666,7 @@ Les fonctions d'aide `marquer_reussi(depot, jour)`, `declencheur_enregistre(depo
 - Consomme : `charger_configuration`, `connecter`, `appliquer_migrations`, `DepotPostgres`, `charger_panel`, `synchroniser_catalogue`, `SourceTwelveData`, `CalendrierXNYS`, `HorlogeSysteme`, `jour_de_marche_courant`, `collecter`.
 - Produit : `main(argv: list[str] | None = None) -> int` ; sous-commandes `migrer`, `catalogue`, `collecter [--date AAAA-MM-JJ] [--declencheur cron|manuel]` ; code de sortie `0` si tous les rapports sont `OK`, `SANS_OBJET` ou `PARTIELLE` (ou s'il n'y a rien à faire), `1` si au moins un rapport est `ECHEC`, `2` pour une configuration incomplète.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from bourse_jev.__main__ import code_de_sortie, lire_arguments
@@ -683,11 +685,12 @@ def test_code_de_sortie():
     assert code_de_sortie([S.OK, S.ECHEC]) == 1
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_cli.py -v`
-- [ ] **Étape 3 : implémenter `main`, `lire_arguments` et `code_de_sortie`** — sans `--date`, la date vient de `jour_de_marche_courant(HorlogeSysteme().maintenant())`. Afficher un résumé par rapport (date, statut, nombre de cours, erreurs) et, pour `PARTIELLE`, une ligne `::warning::` lisible dans GitHub Actions.
-- [ ] **Étape 4 : écrire `.github/workflows/collecte.yml`** — déclencheurs : `schedule` avec `cron: "45 21 * * 1-5"` (21 h 45 UTC, après la clôture de New York en heure d'été comme d'hiver) et `workflow_dispatch` ; secrets `DATABASE_URL` et `TWELVE_DATA_API_KEY` ; étapes : `uv sync`, `uv run python -m bourse_jev migrer`, `… catalogue`, `… collecter` ; `timeout-minutes: 30` (31 titres à 8 par minute ≈ 4 minutes, plus le rattrapage).
-- [ ] **Étape 5 : vérifier localement** — `uv run pytest -v`, `uv run ruff check .` et `uv run mypy src` passent.
-- [ ] **Étape 6 : commit** — `feat(cli): commandes migrer, catalogue, collecter et batch planifié`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/test_cli.py -v`
+- [x] **Étape 3 : implémenter `main`, `lire_arguments` et `code_de_sortie`** — sans `--date`, la date vient de `jour_de_marche_courant(HorlogeSysteme().maintenant())`. Afficher un résumé par rapport (date, statut, nombre de cours, erreurs) et, pour `PARTIELLE`, une ligne `::warning::` lisible dans GitHub Actions.
+- [x] **Étape 4 : écrire `.github/workflows/collecte.yml`** — déclencheurs : `schedule` avec `cron: "45 21 * * 1-5"` (21 h 45 UTC, après la clôture de New York en heure d'été comme d'hiver) et `workflow_dispatch` ; secrets `DATABASE_URL` et `TWELVE_DATA_API_KEY` ; étapes : `uv sync`, `uv run python -m bourse_jev migrer`, `… catalogue`, `… collecter` ; `timeout-minutes: 30` (31 titres à 8 par minute ≈ 4 minutes, plus le rattrapage).
+- [x] **Étape 5 : vérifier localement** — `uv run pytest -v`, `uv run ruff check .` et `uv run mypy src` passent.
+- [x] **Étape 6 : commit** — `feat(cli): commandes migrer, catalogue, collecter et batch planifié`
+  > Écart (exécution) : le workflow passe `--declencheur cron` sur `schedule` et `manuel` sur `workflow_dispatch` ; groupe `concurrency` pour empêcher deux collectes simultanées ; dépendances de dev non installées en production (`--no-dev`). Les messages d'API sont mis sur une seule ligne avant affichage, pour qu'ils ne puissent pas forger une commande de workflow `::…::`.
 - [ ] **Étape 7 : mise en service (manuelle, par Valentin)**
   1. Créer le projet Neon et récupérer la chaîne de connexion.
   2. Créer la clé Twelve Data (offre Basic).

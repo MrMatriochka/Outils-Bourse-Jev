@@ -1,0 +1,46 @@
+[project]
+name = "bourse-jev"
+version = "0.1.0"
+description = "Analyse boursière quotidienne : collecte, axes, verdicts et évaluation honnête."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx",
+    "psycopg[binary]",
+    "exchange_calendars",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "mypy",
+]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+# Les blocs de code des plans sont des citations : ruff ne doit pas les reformater.
+extend-exclude = ["docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = ["reel: appelle une vraie API, exclu par défaut"]
+addopts = "-m 'not reel'"
+
+[[tool.mypy.overrides]]
+# exchange_calendars ne publie ni annotations ni stubs.
+module = ["exchange_calendars", "exchange_calendars.*"]
+ignore_missing_imports = true
