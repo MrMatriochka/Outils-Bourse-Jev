@@ -83,7 +83,7 @@ tests/
 **Interfaces :**
 - Produit : le paquet installable `bourse_jev` ; `bourse_jev.__version__: str` ; les commandes `uv run pytest`, `uv run ruff check .`, `uv run mypy src`.
 
-- [ ] **Étape 1 : écrire le test qui échoue**
+- [x] **Étape 1 : écrire le test qui échoue**
 
 ```python
 import bourse_jev
@@ -92,23 +92,23 @@ def test_le_paquet_expose_sa_version():
     assert bourse_jev.__version__ == "0.1.0"
 ```
 
-- [ ] **Étape 2 : lancer le test et vérifier l'échec**
+- [x] **Étape 2 : lancer le test et vérifier l'échec**
 
 Commande : `uv run pytest tests/test_socle.py -v` — attendu : échec (`ModuleNotFoundError`).
 
-- [ ] **Étape 3 : créer `pyproject.toml` et le paquet**
+- [x] **Étape 3 : créer `pyproject.toml` et le paquet**
 
 Projet `bourse-jev` version `0.1.0`, `requires-python = ">=3.12"`, disposition `src/`, paquet `bourse_jev`. Dépendances : `httpx`, `psycopg[binary]`, `exchange_calendars`. Dépendances de développement : `pytest`, `ruff`, `mypy`. Ruff : `line-length = 100`, règles `E,F,I,B,UP`. Mypy : `strict = true` sur `src`. Pytest : `pythonpath = ["."]` (pour importer `tests.doublures`), marqueur `reel` (« appelle une vraie API, exclu par défaut ») et `addopts = "-m 'not reel'"`. Créer `tests/__init__.py` vide.
 
-- [ ] **Étape 4 : écrire `.github/workflows/tests.yml`**
+- [x] **Étape 4 : écrire `.github/workflows/tests.yml`**
 
 Déclenché sur `push` et `pull_request`. Un service `postgres:16` (utilisateur, mot de passe et base `test`, port 5432, contrôle de santé `pg_isready`). Étapes : récupérer le code, installer uv, `uv sync`, `uv run ruff check .`, `uv run mypy src`, `uv run pytest`, avec `TEST_DATABASE_URL=postgresql://test:test@localhost:5432/test`.
 
-- [ ] **Étape 5 : vérifier**
+- [x] **Étape 5 : vérifier**
 
 Commandes : `uv run pytest -v`, `uv run ruff check .`, `uv run mypy src` — attendu : tout passe.
 
-- [ ] **Étape 6 : commit**
+- [x] **Étape 6 : commit**
 
 ```bash
 git add pyproject.toml .python-version src/ tests/ .github/workflows/tests.yml uv.lock
