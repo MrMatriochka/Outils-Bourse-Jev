@@ -1,0 +1,7 @@
+{
+  "meta": {"symbol": "AAPL", "interval": "1day"},
+  "values": [
+    {"datetime": "2026-10-27", "open": "231.10", "high": "233.80", "low": "230.40", "volume": "48210500"}
+  ],
+  "status": "ok"
+}

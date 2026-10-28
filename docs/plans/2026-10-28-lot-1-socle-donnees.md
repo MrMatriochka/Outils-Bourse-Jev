@@ -422,7 +422,7 @@ Appel : `GET https://api.twelvedata.com/time_series` avec `symbol`, `interval=1d
 
 Contenu de `time_series_aapl.json` (valeurs fictives) : trois barres, `2026-10-27` (open `231.10`, high `233.80`, low `230.40`, close `232.95`, volume `48210500`), `2026-10-24`, `2026-10-23`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 import json
@@ -493,14 +493,16 @@ def test_contrat_reel_twelve_data():
 
 `malformee.json` : `status: ok` et une barre du 27/10/2026 sans champ `close`. `erreur_symbole.json` : `{"code": 404, "message": "symbol ZZZZ not found", "status": "error"}`.
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_twelve_data.py -v`
-- [ ] **Étape 3 : implémenter `SourceTwelveData.cours_du_jour`**
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/adaptateurs/test_twelve_data.py -v`
+- [x] **Étape 3 : implémenter `SourceTwelveData.cours_du_jour`**
 
 Limitation par fenêtre glissante : une `deque` des instants d'appel ; retirer ceux de plus de 60 s ; s'il en reste 8, attendre `60 - (maintenant - plus_ancien)` secondes puis retirer le plus ancien (ne pas relire l'horloge en boucle : le test utilise une horloge figée). Contrôler le quota journalier interne **avant** l'appel. Code 429 (HTTP ou dans le corps) → `QuotaAtteint` ; tout autre `status: error`, erreur réseau ou champ manquant/non numérique → `SourceIndisponible` dont le message contient le symbole. Conversion des chaînes en `Decimal` et du volume en `int`.
 
-- [ ] **Étape 4 : vérifier** — les tests passent (le test `reel` est exclu).
+- [x] **Étape 4 : vérifier** — les tests passent (le test `reel` est exclu).
 - [ ] **Étape 5 : écrire le corps du test `reel`** (un appel AAPL sur le dernier jour de bourse ; vérifie un `CoursBrut` cohérent) et le lancer une fois à la main : `uv run pytest -m reel -v`. Si le format réel diffère des fixtures, corriger les fixtures, pas le test réel.
-- [ ] **Étape 6 : commit** — `feat(adaptateurs): source de cours Twelve Data avec limitation de débit`
+  > Écart (exécution) : corps écrit ; le lancement réel reste à faire par Valentin (consomme le quota, nécessite la clé).
+  > Écart (exécution) : `outputsize=30` au lieu de 5 (5 barres ne couvrent pas une fenêtre de rattrapage de 10 jours de bourse ; même coût en crédits) ; clé envoyée en en-tête `Authorization: apikey …` et non en paramètre `apikey`, pour qu'elle n'apparaisse jamais dans une URL journalisée.
+- [x] **Étape 6 : commit** — `feat(adaptateurs): source de cours Twelve Data avec limitation de débit`
 
 ---
 
