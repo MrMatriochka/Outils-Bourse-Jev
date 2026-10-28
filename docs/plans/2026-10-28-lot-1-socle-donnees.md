@@ -184,7 +184,7 @@ def test_le_message_ne_contient_jamais_de_valeur_secrete():
 - Produit, dans `temps.py` : `jour_de_marche_courant(maintenant: datetime) -> date` (date dans `America/New_York`).
 - Produit, dans `adaptateurs/horloge.py` : `HorlogeSysteme` ; dans `tests/doublures.py` : `HorlogeFixe(instant: datetime)` et une fabrique `fabriquer_cours(**modifs) -> CoursJournalier` (titre 1, 27/10/2026, OHLC 100/101/99/100, volume 1000, source `"test"`, `recupere_le` 27/10/2026 21 h 45 UTC ; chaque argument nommé remplace le champ du même nom).
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from decimal import Decimal as D
@@ -237,13 +237,13 @@ def test_jour_de_marche_courant_apres_la_cloture():
     assert jour_de_marche_courant(datetime(2026, 10, 28, 21, 45, tzinfo=timezone.utc)) == date(2026, 10, 28)
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/domaine -v`
-- [ ] **Étape 3 : implémenter les modèles, `valider_cours`, les ports, `jour_de_marche_courant` et `HorlogeSysteme`**
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/domaine -v`
+- [x] **Étape 3 : implémenter les modèles, `valider_cours`, les ports, `jour_de_marche_courant` et `HorlogeSysteme`**
 
 Ordre des contrôles dans `valider_cours` : valeurs non positives, puis cohérence (`haut >= max(ouverture, cloture, bas)` et `bas <= min(ouverture, cloture)`), puis variation `abs(cloture / cloture_precedente - 1) > Decimal("0.5")`. `jour_de_marche_courant` utilise `zoneinfo.ZoneInfo("America/New_York")`.
 
-- [ ] **Étape 4 : vérifier** — `uv run pytest tests/domaine -v` passe, `uv run mypy src` passe.
-- [ ] **Étape 5 : commit** — `feat(domaine): modèles, validation des cours et ports`
+- [x] **Étape 4 : vérifier** — `uv run pytest tests/domaine -v` passe, `uv run mypy src` passe.
+- [x] **Étape 5 : commit** — `feat(domaine): modèles, validation des cours et ports`
 
 ---
 
