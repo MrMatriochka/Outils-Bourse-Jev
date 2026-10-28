@@ -292,7 +292,7 @@ def test_intervalle_sans_jour_de_bourse():
 - Consomme : le port `Depot` et les modèles (tâche 3).
 - Produit : `DepotEnMemoire()` ; une fixture pytest `depot` paramétrée sur `["memoire"]`, à laquelle la tâche 6 ajoute `"postgres"`. Les attributs internes du dépôt en mémoire ne sont jamais lus par les tests : seules les méthodes du port le sont, pour que la même suite vaille contrat pour Postgres.
 
-- [ ] **Étape 1 : écrire les tests de contrat qui échouent**
+- [x] **Étape 1 : écrire les tests de contrat qui échouent**
 
 ```python
 from datetime import date, datetime, timezone
@@ -342,10 +342,10 @@ def test_dates_reussies_ne_contiennent_que_ok_et_sans_objet(depot):
     assert depot.dates_reussies(depuis=date(2026, 10, 1)) == {date(2026, 10, 27), date(2026, 10, 25)}
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/contrat -v`
-- [ ] **Étape 3 : implémenter `DepotEnMemoire`** (identifiants séquentiels à partir de 1, unicité titre sur `(symbole, place)`).
-- [ ] **Étape 4 : vérifier** — `uv run pytest tests/contrat -v` passe.
-- [ ] **Étape 5 : commit** — `feat(adaptateurs): dépôt en mémoire et suite de contrat`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/contrat -v`
+- [x] **Étape 3 : implémenter `DepotEnMemoire`** (identifiants séquentiels à partir de 1, unicité titre sur `(symbole, place)`).
+- [x] **Étape 4 : vérifier** — `uv run pytest tests/contrat -v` passe.
+- [x] **Étape 5 : commit** — `feat(adaptateurs): dépôt en mémoire et suite de contrat`
 
 ---
 

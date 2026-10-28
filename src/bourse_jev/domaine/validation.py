@@ -14,9 +14,7 @@ class MotifRejet(StrEnum):
     VARIATION_ABERRANTE = "variation_aberrante"
 
 
-def valider_cours(
-    cours: CoursJournalier, cloture_precedente: Decimal | None
-) -> MotifRejet | None:
+def valider_cours(cours: CoursJournalier, cloture_precedente: Decimal | None) -> MotifRejet | None:
     """Renvoie le premier motif de rejet trouvé, ou `None` si le cours est vraisemblable.
 
     Une variation de 50 % exactement est acceptée ; seule une variation strictement

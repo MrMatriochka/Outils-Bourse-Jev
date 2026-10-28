@@ -24,6 +24,8 @@ build-backend = "uv_build"
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+# Les blocs de code des plans sont des citations : ruff ne doit pas les reformater.
+extend-exclude = ["docs"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
