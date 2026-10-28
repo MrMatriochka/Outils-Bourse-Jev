@@ -1,0 +1,32 @@
+symbole,nom,place,devise,role
+AAPL,Apple,XNYS,USD,panel
+MSFT,Microsoft,XNYS,USD,panel
+NVDA,NVIDIA,XNYS,USD,panel
+AMZN,Amazon.com,XNYS,USD,panel
+GOOGL,Alphabet (classe A),XNYS,USD,panel
+META,Meta Platforms,XNYS,USD,panel
+JPM,JPMorgan Chase,XNYS,USD,panel
+BAC,Bank of America,XNYS,USD,panel
+V,Visa,XNYS,USD,panel
+MA,Mastercard,XNYS,USD,panel
+JNJ,Johnson & Johnson,XNYS,USD,panel
+PFE,Pfizer,XNYS,USD,panel
+UNH,UnitedHealth Group,XNYS,USD,panel
+LLY,Eli Lilly,XNYS,USD,panel
+XOM,Exxon Mobil,XNYS,USD,panel
+CVX,Chevron,XNYS,USD,panel
+PG,Procter & Gamble,XNYS,USD,panel
+KO,Coca-Cola,XNYS,USD,panel
+PEP,PepsiCo,XNYS,USD,panel
+WMT,Walmart,XNYS,USD,panel
+COST,Costco Wholesale,XNYS,USD,panel
+HD,Home Depot,XNYS,USD,panel
+MCD,McDonald's,XNYS,USD,panel
+DIS,Walt Disney,XNYS,USD,panel
+CAT,Caterpillar,XNYS,USD,panel
+BA,Boeing,XNYS,USD,panel
+GE,GE Aerospace,XNYS,USD,panel
+NEE,NextEra Energy,XNYS,USD,panel
+T,AT&T,XNYS,USD,panel
+VZ,Verizon Communications,XNYS,USD,panel
+SPY,SPDR S&P 500 ETF Trust,XNYS,USD,reference

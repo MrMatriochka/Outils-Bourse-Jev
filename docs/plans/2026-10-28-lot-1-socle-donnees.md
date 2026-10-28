@@ -518,7 +518,7 @@ Limitation par fenêtre glissante : une `deque` des instants d'appel ; retirer c
 
 `panel_temoin.csv` — colonnes `symbole,nom,place,devise,role` (`role` = `panel` ou `reference`). Trente titres répartis entre secteurs, pour ne pas reproduire le biais « technologie à la mode » : AAPL, MSFT, NVDA, AMZN, GOOGL, META (technologie et communication), JPM, BAC, V, MA (finance), JNJ, PFE, UNH, LLY (santé), XOM, CVX (énergie), PG, KO, PEP, WMT, COST (consommation de base), HD, MCD, DIS (consommation cyclique), CAT, BA, GE (industrie), NEE (services aux collectivités), T, VZ (télécoms) ; plus SPY en `reference`. Place `XNYS` pour tous (simplification v1 : la place sert d'identifiant interne, pas d'adresse de cotation), devise `USD`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 from pathlib import Path
@@ -538,10 +538,10 @@ def test_synchronisation_idempotente():
     assert synchroniser_catalogue(depot, titres) == 0
 ```
 
-- [ ] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_catalogue.py -v`
-- [ ] **Étape 3 : écrire le CSV et implémenter les deux fonctions** (module `csv` de la bibliothèque standard).
-- [ ] **Étape 4 : vérifier** — les tests passent.
-- [ ] **Étape 5 : commit** — `feat(catalogue): panel témoin de 30 titres et ETF de référence`
+- [x] **Étape 2 : vérifier l'échec** — `uv run pytest tests/application/test_catalogue.py -v`
+- [x] **Étape 3 : écrire le CSV et implémenter les deux fonctions** (module `csv` de la bibliothèque standard).
+- [x] **Étape 4 : vérifier** — les tests passent.
+- [x] **Étape 5 : commit** — `feat(catalogue): panel témoin de 30 titres et ETF de référence`
 
 ---
 
