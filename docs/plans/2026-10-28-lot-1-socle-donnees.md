@@ -367,7 +367,7 @@ Contenu de `001_socle.sql` :
 - Un déclencheur qui lève une exception sur tout `UPDATE` ou `DELETE` de `cours_journalier` (ajout seul garanti par la base, en plus du code).
 - `execution(id bigint generated always as identity primary key, date_marche date not null unique, declencheur text not null check (declencheur in ('cron','manuel','rattrapage')), statut text not null check (statut in ('en_cours','ok','partielle','sans_objet','echec')), debut timestamptz not null, fin timestamptz, nb_cours_enregistres integer not null default 0, erreurs jsonb not null default '[]', titres_en_retard jsonb not null default '[]', credits_consommes integer not null default 0)`.
 
-- [ ] **Étape 1 : écrire les tests qui échouent**
+- [x] **Étape 1 : écrire les tests qui échouent**
 
 ```python
 import pytest
@@ -400,11 +400,11 @@ def test_connecter_echoue_apres_deux_tentatives():
 
 Fixtures (`tests/conftest.py`) : `conn_test` ouvre `TEST_DATABASE_URL`, recrée un schéma vide pour chaque test (`DROP SCHEMA public CASCADE; CREATE SCHEMA public`) et saute le test (`pytest.skip`) si la variable est absente ; `dossier_migrations` pointe vers `migrations/` ; `depot_postgres_avec_un_cours` applique les migrations, enregistre le titre AAPL puis `fabriquer_cours(titre_id=<son id>)`.
 
-- [ ] **Étape 2 : vérifier l'échec** — `TEST_DATABASE_URL=… uv run pytest tests/adaptateurs/test_postgres.py -v` (Postgres local : `docker run -e POSTGRES_PASSWORD=test -e POSTGRES_USER=test -e POSTGRES_DB=test -p 5432:5432 postgres:16`).
-- [ ] **Étape 3 : écrire `001_socle.sql`, `connecter`, `appliquer_migrations` et `DepotPostgres`** — chaque migration dans sa propre transaction ; `enregistrer_cours` en `INSERT … ON CONFLICT (titre_id, jour) DO NOTHING` et renvoie `rowcount == 1` ; `debuter_execution` en `INSERT … ON CONFLICT (date_marche) DO UPDATE SET statut = 'en_cours', declencheur = …, debut = … RETURNING id`.
-- [ ] **Étape 4 : brancher la suite de contrat** — ajouter `"postgres"` aux paramètres de la fixture `depot` (migrations appliquées sur la base de test).
-- [ ] **Étape 5 : vérifier** — `uv run pytest tests/contrat tests/adaptateurs/test_postgres.py -v` : la suite de contrat passe pour `memoire` et `postgres`.
-- [ ] **Étape 6 : commit** — `feat(adaptateurs): schéma Postgres, migrations et dépôt Postgres`
+- [x] **Étape 2 : vérifier l'échec** — `TEST_DATABASE_URL=… uv run pytest tests/adaptateurs/test_postgres.py -v` (Postgres local : `docker run -e POSTGRES_PASSWORD=test -e POSTGRES_USER=test -e POSTGRES_DB=test -p 5432:5432 postgres:16`).
+- [x] **Étape 3 : écrire `001_socle.sql`, `connecter`, `appliquer_migrations` et `DepotPostgres`** — chaque migration dans sa propre transaction ; `enregistrer_cours` en `INSERT … ON CONFLICT (titre_id, jour) DO NOTHING` et renvoie `rowcount == 1` ; `debuter_execution` en `INSERT … ON CONFLICT (date_marche) DO UPDATE SET statut = 'en_cours', declencheur = …, debut = … RETURNING id`.
+- [x] **Étape 4 : brancher la suite de contrat** — ajouter `"postgres"` aux paramètres de la fixture `depot` (migrations appliquées sur la base de test).
+- [x] **Étape 5 : vérifier** — `uv run pytest tests/contrat tests/adaptateurs/test_postgres.py -v` : la suite de contrat passe pour `memoire` et `postgres`.
+- [x] **Étape 6 : commit** — `feat(adaptateurs): schéma Postgres, migrations et dépôt Postgres`
 
 ---
 
